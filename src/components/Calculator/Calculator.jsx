@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './Calculator.css';
+import Display from '../Display/Display';
 
 class Calculator extends Component {
 
     state = {
         // value to be displayed in <Display />
-        displayValue: '0',
+        displayValue: '49',
         // values to be displayed in number <Keys />
         number: [],
         // values to be displayed in operator <Keys />
@@ -29,8 +30,12 @@ class Calculator extends Component {
     }
 
     render(){
+        // using destructuring 
+        const { displayValue } = this.state;
+
         return(
             <div className="calculator-container">
+                <Display displayValue={displayValue} />
             </div>
         );
     }
