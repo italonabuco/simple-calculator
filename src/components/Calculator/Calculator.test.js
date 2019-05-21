@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import Calculator from './Calculator';
 import Display from '../Display/Display';
 import Keypad from '../Keypad/Keypad';
@@ -30,5 +30,51 @@ describe('Calculator', () => {
                 updateDisplay={wrapper.instance().updateDisplay}
             />
         ])).toEqual(true);
+    });
+});
+
+describe('mounted Calculator', () => {
+    let wrapper;
+    
+    /**
+     *  use 'mount' instead of 'shallow'
+     *  because we are testing the behavior of child components
+     */
+    beforeEach(() => wrapper = mount(<Calculator />));
+
+    it('calls updateDisplay when a number key is clicked', () => {
+        /**
+         * (1) creating a 'spy' using Jest 'spyOn' method for
+         * the calculator method we are testing.
+         */
+        const spy = jest.spyOn(wrapper.instance(), 'updateDisplay');
+        /**
+         * (2) calling 'forceUpdate' to re-render the 'instance'
+         * within the test.
+         */
+        wrapper.instance().forceUpdate();
+        expect(spy).toHaveBeenCalledTimes(0);
+        /**
+         * (3) using Enzyme's 'simulate' method on the corresponding
+         * 'Key' to create the event.
+         */
+        wrapper.find('.number-key').first().simulate('click');
+        expect(spy).toHaveBeenCalledTimes(1);
+    });   
+    
+    it('calls setOperator when an operator is clicked', () => {
+        const spy = jest.spyOn(wrapper.instance(), 'setOperator');
+        wrapper.instance().forceUpdate();
+        expect(spy).toHaveBeenCalledTimes(0);
+        wrapper.find('.operator-key').first().simulate('click');
+        expect(spy).toHaveBeenCalledTimes(1);
+    });
+
+    it('calls callOperator when the submit key is clicked', () => {
+        const spy = jest.spyOn(wrapper.instance(), 'callOperator');
+        wrapper.instance().forceUpdate();
+        expect(spy).toHaveBeenCalledTimes(0);
+        wrapper.find('.submit-key').first().simulate('click');
+        expect(spy).toHaveBeenCalledTimes(1);
     });
 });

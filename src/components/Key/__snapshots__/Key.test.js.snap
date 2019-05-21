@@ -3,6 +3,7 @@
 exports[`Key should render correctly 1`] = `
 <div
   className="key-container "
+  onClick={[Function]}
 >
   <p
     className="key-value"
