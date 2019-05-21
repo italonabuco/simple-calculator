@@ -7,11 +7,11 @@ class Calculator extends Component {
 
     state = {
         // value to be displayed in <Display />
-        displayValue: '49',
+        displayValue: '0',
         // values to be displayed in number <Keys />
-        numbers: [],
+        numbers: ['7', '8', '9', '4', '5', '6', '1', '2', '3', '.', '0', 'ce'],
         // values to be displayed in operator <Keys />
-        operators: [],
+        operators: ['/', 'x', '-', '+'],
         // operator selected for math operation
         selectedOperator: '',
         // stored value to use for math operation
